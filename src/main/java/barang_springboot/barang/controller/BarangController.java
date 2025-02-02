@@ -2,6 +2,7 @@ package barang_springboot.barang.controller;
 
 import barang_springboot.barang.entities.BarangEntity;
 import barang_springboot.barang.service.BarangService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +36,7 @@ public class BarangController {
 
     //create
     @PostMapping("create")
+//    @JsonView(BarangEntity.ViewBarang.Summary.class)
     public ResponseEntity<BarangEntity> createBarang(@RequestBody BarangEntity barang) {
         BarangEntity newBarang = barangService.createBarang(barang);
         return ResponseEntity.ok(newBarang);
@@ -42,6 +44,7 @@ public class BarangController {
 
     //read all
     @GetMapping("read")
+    @JsonView(BarangEntity.ViewBarang.Detail.class)
     public List<BarangEntity> getAllBarang() {
         return barangService.getAllBarang();
     }
