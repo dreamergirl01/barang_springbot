@@ -1,8 +1,8 @@
 package barang_springboot.barang.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,23 +12,34 @@ import java.time.LocalDateTime;
 //@Builder
 public class BarangEntity {
 
+    public interface ViewBarang{
+        interface Summary{}
+        interface Detail extends Summary{}
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(ViewBarang.Detail.class)
     private Long id;
 
     @Column(unique = true, nullable = false)
+    @JsonView(ViewBarang.Detail.class)
     private String kodeBarang;
 
     @Column(nullable = false)
+    @JsonView(ViewBarang.Detail.class)
     private String namaBarang;
 
     @Column(nullable = false)
+    @JsonView(ViewBarang.Detail.class)
     private Integer jumlahStok;
 
     @Column(nullable = false)
+    @JsonView(ViewBarang.Detail.class)
     private BigDecimal hargaSatuan;
 
     @Column(nullable = false)
+    @JsonView(ViewBarang.Detail.class)
     private LocalDateTime tanggalMasuk;
 
     @PrePersist
