@@ -1,15 +1,16 @@
-package barang_springboot.barang.entities;
+package barang_springboot.barang.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "barang")
+@Getter
+@Setter
 //@Builder
 public class BarangEntity {
 
@@ -43,7 +44,6 @@ public class BarangEntity {
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
