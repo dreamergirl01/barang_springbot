@@ -40,15 +40,10 @@ public class BarangEntity {
         }
     }
 
-    @JsonIgnore
     public Long getId() {
         return id;
     }
 
-    @JsonIgnore
-    public Long getIdOnCreate() {
-        return id;
-    }
 
     public void setId(Long id) {
         this.id = id;
