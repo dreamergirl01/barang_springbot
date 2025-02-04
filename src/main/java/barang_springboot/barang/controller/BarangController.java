@@ -1,6 +1,7 @@
 package barang_springboot.barang.controller;
 
 import barang_springboot.barang.entities.BarangEntity;
+import barang_springboot.barang.request.BarangRequest;
 import barang_springboot.barang.service.BarangService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,33 +19,14 @@ public class BarangController {
     @Autowired
     private BarangService barangService;
 
-//    public BarangController(BarangService barangService) {
-//        this.barangService = barangService;
-//    }
-
-
-//    @PostMapping
-//    public BarangEntity createBarang(@RequestBody BarangRequest barangRequest){
-//        BarangEntity barangEntity = new BarangEntity();
-//        barangEntity.setKodeBarang(barangRequest.getKodeBarang());
-//        barangEntity.setNamaBarang(barangRequest.getNamaBarang());
-//        barangEntity.setJumlahStok(barangRequest.getJumlahStok());
-//        barangEntity.setHargaSatuan(barangRequest.getHargaSatuan());
-//        barangEntity.setTanggalMasuk(LocalDateTime.now());
-//        return barangService.save(barangEntity);
-//    }
-
     //create
     @PostMapping("create")
-//    @JsonView(BarangEntity.ViewBarang.Summary.class)
-    public ResponseEntity<BarangEntity> createBarang(@RequestBody BarangEntity barang) {
-        BarangEntity newBarang = barangService.createBarang(barang);
-        return ResponseEntity.ok(newBarang);
+    public ResponseEntity<BarangEntity> createBarang(@RequestBody BarangRequest request) {
+        return ResponseEntity.ok(barangService.createBarang(request));
     }
 
     //read all
     @GetMapping("read")
-    @JsonView(BarangEntity.ViewBarang.Detail.class)
     public List<BarangEntity> getAllBarang() {
         return barangService.getAllBarang();
     }
