@@ -1,9 +1,8 @@
 package barang_springboot.barang.controller;
 
-import barang_springboot.barang.entities.BarangEntity;
+import barang_springboot.barang.entity.BarangEntity;
 import barang_springboot.barang.request.BarangRequest;
 import barang_springboot.barang.service.BarangService;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,8 +30,18 @@ public class BarangController {
         return barangService.getAllBarang();
     }
 
+    //filter
+    @GetMapping("filter")
+    public List<BarangEntity> getBarangFiltered(
+            @RequestParam(required = false) String namaBarang,
+            @RequestParam(required = false) Integer jumlahStok,
+            @RequestParam(defaultValue = "namaBarang") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection) {
+        return barangService.getBarangFiltered(namaBarang, jumlahStok, sortBy, sortDirection);
+    }
+
     //update
-    @PutMapping("edit/{id}")
+    @PostMapping("edit/{id}")
     public ResponseEntity<BarangEntity> updateBarang(@PathVariable Long id, @RequestBody BarangEntity barangDetails) {
         BarangEntity updatedBarang = barangService.updateBarang(id, barangDetails);
         return updatedBarang != null ? ResponseEntity.ok(updatedBarang) : ResponseEntity.notFound().build();

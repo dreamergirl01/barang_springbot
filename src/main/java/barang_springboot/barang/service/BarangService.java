@@ -1,15 +1,13 @@
 package barang_springboot.barang.service;
 
-import barang_springboot.barang.entities.BarangEntity;
+import barang_springboot.barang.entity.BarangEntity;
 import barang_springboot.barang.repository.BarangRepository;
 import barang_springboot.barang.request.BarangRequest;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -37,6 +35,10 @@ public class BarangService {
     //read all
     public List<BarangEntity> getAllBarang() {
         return barangRepository.findAll();
+    }
+
+    public List<BarangEntity> getBarangFiltered(String namaBarang, Integer jumlahStok, String sortBy, String sortDirection){
+        return barangRepository.findAllWithFilters(namaBarang, jumlahStok, sortBy, sortDirection);
     }
 
     //update
