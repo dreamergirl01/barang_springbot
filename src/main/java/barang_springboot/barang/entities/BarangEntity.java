@@ -2,6 +2,7 @@ package barang_springboot.barang.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -12,34 +13,24 @@ import java.time.LocalDateTime;
 //@Builder
 public class BarangEntity {
 
-    public interface ViewBarang{
-        interface Summary{}
-        interface Detail extends Summary{}
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonView(ViewBarang.Detail.class)
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @JsonView(ViewBarang.Detail.class)
     private String kodeBarang;
 
     @Column(nullable = false)
-    @JsonView(ViewBarang.Detail.class)
     private String namaBarang;
 
     @Column(nullable = false)
-    @JsonView(ViewBarang.Detail.class)
     private Integer jumlahStok;
 
     @Column(nullable = false)
-    @JsonView(ViewBarang.Detail.class)
+//    @JsonSerialize(using = RupiahSerializer.class)
     private BigDecimal hargaSatuan;
 
     @Column(nullable = false)
-    @JsonView(ViewBarang.Detail.class)
     private LocalDateTime tanggalMasuk;
 
     @PrePersist
@@ -51,6 +42,11 @@ public class BarangEntity {
 
     @JsonIgnore
     public Long getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public Long getIdOnCreate() {
         return id;
     }
 
